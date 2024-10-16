@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -13,6 +14,7 @@ const Login = () => {
       const response = await axios.post('http://localhost:5000/api/users/login', { email, password });
       if (response.data.isOK) {
         console.log('Login successful:', response.data.token);
+        Cookies.set('authToken', response.data.token, { expires: 30 });
         navigate('/home')
       } else {
         console.log('Login failed: Incorrect email or password');

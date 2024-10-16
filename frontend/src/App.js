@@ -6,21 +6,21 @@ import Signup from './pages/signup';
 import Home from './pages/home';
 import Cart from './pages/cart';
 import Orders from './pages/orders';
-//import ProtectedRoute from './ProtectedRoute'; // Your protected route component
+import ProtectedRoute from './components/protectedRoutes'; // Import the ProtectedRoute component
 
 const App = () => {
   return (
     <Router>
       <Routes>
+        {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        {/* Redirect from root to /login */}
         <Route path="/" element={<Navigate to="/login" replace />} />
         
         {/* Protected Routes */}
-        <Route path="/home" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/orders" element={<Orders />} />
+        <Route path="/home" element={<ProtectedRoute element={Home} />} />
+        <Route path="/cart" element={<ProtectedRoute element={Cart} />} />
+        <Route path="/orders" element={<ProtectedRoute element={Orders} />} />
       </Routes>
     </Router>
   );
